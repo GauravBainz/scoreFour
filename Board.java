@@ -210,6 +210,7 @@ public class Board {
         //returns the board array
         public Peg[][] getBoard(){
                 return board;
+        }
 
         //will clear beads from the board
         public void clear(){

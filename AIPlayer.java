@@ -26,5 +26,9 @@ class AIPlayer {
 	 */
 	public void playNextMove() {
 
+		int derivedX = 0, derivedY = 0;
+		Peg[][] contents = mainBoard.getBoard();
+
+		mainBoard.placeBead(x, y, PLAYER_TWO);
 	}
 }

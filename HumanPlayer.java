@@ -28,6 +28,7 @@ class HumanPlayer {
 	 * @param y The y-pos of the move
 	 */
 	public void playNextMove(int x, int y) {
-		mainBoard.putBeadAt(x, y);
+		// x and y start at 0, 1, 2...
+		mainBoard.placeBead(x, y, PLAYER_ONE);
 	}
 }
