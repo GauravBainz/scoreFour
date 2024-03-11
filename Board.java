@@ -210,9 +210,16 @@ public class Board {
         //returns the board array
         public Peg[][] getBoard(){
                 return board;
-    
-        //will clear the board
-        public void clear(){}
+
+        //will clear beads from the board
+        public void clear(){
+                for(int i = 0; i<4; i++){
+                        for(int j = 0; j<4; j++){
+                                Peg peg = board[i][j];
+                                peg.clear();
+                        }
+                }
+        }
 
         //public Peg getEmptyPegs(){}
         //public void reset(){}
