@@ -199,15 +199,19 @@ public class Board {
 
                 return false; // No diagonal win found
         }
-    //checks if there is any win on the board
+        //checks if there is any win on the board
         public boolean checkWin(){
                 if(checkVerticalWin() || checkHorizontalWin() || checkDiagonalWin() || checkUpWin()){
                         return true;
                 }
                 return false;
         }
+
+        //returns the board array
+        public Peg[][] getBoard(){
+                return board;
     
-    //will clear the board
+        //will clear the board
         public void clear(){}
 
         //public Peg getEmptyPegs(){}
