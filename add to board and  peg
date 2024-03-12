@@ -1,0 +1,28 @@
+ public int getRows() {
+        return rows;
+    }
+
+    public int getColumns() {
+        return columns.size();
+    }
+
+    // Add to peg
+    public void addPiece(int column, Piece piece) {
+        if (column >= 0 && column < columns.size()) {
+            columns.get(column).add(piece);
+        } else {
+            throw new IllegalArgumentException("Invalid column index: " + column);
+        }
+    }
+
+    // add to board
+    public Piece getPieceAt(int column, int row) {
+        if (column >= 0 && column < columns.size() && row >= 0 && row < rows) {
+            List<Piece> columnList = columns.get(column);
+            if (row < columnList.size()) {
+                return columnList.get(row);
+            }
+        }
+        return null;
+    }
+}
