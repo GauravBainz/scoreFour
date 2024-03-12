@@ -1,7 +1,8 @@
- public int getRows() {
+// add to board
+public int getRows() {
         return rows;
     }
-
+    // add to board
     public int getColumns() {
         return columns.size();
     }
