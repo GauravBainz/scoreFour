@@ -1,67 +1,88 @@
-public class Validator {
-private boolean checkConsecutivePieces(int startX, int startY, int xDirection, int yDirection, Piece player) {
-    for (int i = 0; i < 4; ++i) {
-        int x = startX + (xDirection * i);
-        int y = startY + (yDirection * i);
+public class Board extends Peg {
+    final int numRows = 4;
+    final int numColumns = 4;
+    private Piece[][] board;
 
-        if (x < 0 || x > numColumns - 1) {
-            return false;
-        }
+    public Board() {
+        // Initialize the board
+        board = new Piece[numRows][numColumns];
+    }
 
-        if (y < 0 || y > numRows - 1) {
-            return false;
-        }
-
-        if (player != getPieceAt(x, y)) {
-            return false;
+    public void placePiece(int x, int y, Piece player) {
+        // Place a piece on the board
+        if (isValidPosition(x, y)) {
+            board[x][y] = player;
         }
     }
 
-    return true;
-}
-/*
-The method starts a loop that iterates four times checking for 4 consecutive
-positive in a specific define by yDirection and xDirection.
+    private boolean isValidPosition(int x, int y) {
+        // Check if the position is within the board boundaries
+        return x >= 0 && x < numColumns && y >= 0 && y < numRows;
+    }
 
-For each  iteration it calculates the coordinates (x,y) based on the initial
-coordinates startX and startY and direction differences xDirection and yDirection.
+    private boolean checkConsecutivePieces(int startX, int startY, int xDirection, int yDirection, Piece player) {
+        for (int i = 0; i < 4; ++i) {
+            int x = startX + (xDirection * i);
+            int y = startY + (yDirection * i);
 
-It also checks if the calculated coordinates x and y are within the boundaries of the game board
-if x or y are out the boundaries it returns false since its not a possible winning line.
+            if (x < 0 || x > numColumns - 1) {
+                return false;
+            }
 
-After it checks id the piece at the currrent coordinate x and y is equal to the player's piece
-if its not it returns falseThis means that the line being checked contains at least one piece
-that is not of the player's type, and therefore, it's not a winning line.
+            if (y < 0 || y > numRows - 1) {
+                return false;
+            }
 
-If the loop completes with any  false returns it means  that all four positions in the specified
-direction contain pieces of the player's type. In this case, it returns true indicating there
-a winning line in that direction.
+            if (player != getPieceAt(x, y)) {
+                return false;
+            }
+        }
 
-*/
-
-private boolean checkWin(int x, int y, Piece player) {
-    // Vertical line
-    if (checkConsecutivePieces(x, y, 0, -1, player)) {
         return true;
     }
 
-    for (int offset = 0; offset < 4; ++offset) {
-        // Horizontal line
-        if (checkConsecutivePieces(x - 3 + offset, y, 1, 0, player)) {
-            return true;
-        }
 
-        // Leading diagonal
-        if (checkConsecutivePieces(x - 3 + offset, y + 3 - offset, 1, -1, player)) {
-            return true;
+    Piece getPieceAt(int x, int y) {
+        // Get the piece at a specific position on the board
+        if (isValidPosition(x, y)) {
+            return board[x][y];
         }
-
-        // Trailing diagonal
-        if (checkConsecutivePieces(x - 3 + offset, y - 3 + offset, 1, 1, player)) {
-            return true;
-        }
+        return null;
     }
 
-    return false;
-}
+    public boolean checkWin(int x, int y, Piece player) {
+        // Peg is Full
 
+        // Vertical line
+        if (checkConsecutivePieces(x, y, 0, 1, player)) {
+            return true;
+        }
+
+        for (int offset = 0; offset < 4; ++offset) {
+            // Horizontal line
+            if (checkConsecutivePieces(x - 3 + offset, y, 1, 0, player)) {
+                return true;
+            }
+
+            // Leading diagonal
+            if (checkConsecutivePieces(x - 3 + offset, y + 3 - offset, 1, -1, player)) {
+                return true;
+            }
+
+            // Trailing diagonal
+            if (checkConsecutivePieces(x - 3 + offset, y - 3 + offset, 1, 1, player)) {
+                return true;
+            }
+        }
+
+        // Check if the board is full
+        if (isFull()) {
+            if (numberOfBlack() == 4 || numberOfWhite() == 4) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+}
