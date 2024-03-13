@@ -7,6 +7,7 @@
  */
 package scoreFour;
 
+import scoreFour.Board;
 import java.util.ArrayList;
 
 /**

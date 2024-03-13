@@ -7,6 +7,8 @@
  */
 package scoreFour;
 
+import scoreFour.Board;
+
 /**
  * A class representing the AI player.
  */
