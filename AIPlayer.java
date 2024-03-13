@@ -10,7 +10,7 @@ package scoreFour;
 /**
  * A class representing the AI player.
  */
-class AIPlayer {
+public class AIPlayer {
 	private Board mainBoard;
 	/**
 	 * Creates a new AI player which will play on the provided board
@@ -21,6 +21,7 @@ class AIPlayer {
 		this.mainBoard = mainBoard;
 	}
 
+
 	/**
 	 * Plays a move at a board position determined by the AI
 	 */
@@ -29,6 +30,7 @@ class AIPlayer {
 		int derivedX = 0, derivedY = 0;
 		Peg[][] contents = mainBoard.getBoard();
 
+		// x and y start at 0, 1, 2...
 		mainBoard.placeBead(x, y, PLAYER_TWO);
 	}
 }
