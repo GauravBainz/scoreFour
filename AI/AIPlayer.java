@@ -8,12 +8,14 @@
 package scoreFour;
 
 import scoreFour.Board;
+import scoreFour.PlayerType;
 
 /**
  * A class representing the AI player.
  */
 public class AIPlayer {
 	private Board mainBoard;
+	private static final PlayerType aiPlayer = PLAYER_TWO;
 	/**
 	 * Creates a new AI player which will play on the provided board
 	 
