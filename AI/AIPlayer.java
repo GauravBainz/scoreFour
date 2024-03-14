@@ -8,20 +8,28 @@
 package scoreFour;
 
 import scoreFour.Board;
+import scoreFour.Player;
 import scoreFour.PlayerType;
 
 /**
  * A class representing the AI player.
  */
-public class AIPlayer {
+public class AIPlayer extends Player {
 	private Board mainBoard;
-	private static final PlayerType aiPlayer = PLAYER_TWO;
+	private PlayerType startsFirst;
+
+	private AIBranch firstBranch;
+
+	private static final PlayerType aiPlayer = PLAYER_TWO; // Change if needed
+
 	/**
 	 * Creates a new AI player which will play on the provided board
 	 
 	 * @param mainBoard The board the AIPlayer will play on
+	 * @param startsFirst The player who starts first
 	 */
-	public AIPlayer(Board mainBoard) {
+	public AIPlayer(Board mainBoard, PlayerType startsFirst) {
+		this.startsFirst = startsFirst;
 		this.mainBoard = mainBoard;
 	}
 
@@ -30,11 +38,16 @@ public class AIPlayer {
 	 * Plays a move at a board position determined by the AI
 	 */
 	public void playNextMove() {
-
-		int derivedX = 0, derivedY = 0;
+		int derivedX, derivedY;
 		Peg[][] contents = mainBoard.getBoard();
+		// So game has just started And AI goes first then start at the bottom corner to
+		// Open up the most moves
+		if ((startsFirst == aiPlayer) && getCurrentTurn() == 0) {
+			derivedX = derivedY = 0;
+		}
 
 		// x and y start at 0, 1, 2...
-		mainBoard.placeBead(x, y, PLAYER_TWO);
+		mainBoard.placeBead(derivedX, derivedY, aiPlayer);
+		nextTurn();
 	}
 }

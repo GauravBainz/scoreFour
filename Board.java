@@ -7,6 +7,10 @@ public class Board {
         private Peg[][] board;
         private final int size = 4;
 
+        public Board(Peg[][] baseBoard) {
+                board = baseBoard.clone();
+        }
+
 
         public Board() {
                 //iterating through and initializing each spot with a Peg
@@ -22,7 +26,8 @@ public class Board {
                 BoardDisplay.displayBoard(board);
         }
 
-        public void placeBead(int row, int column, PlayerType player) {
+        // Modified to return false if a move is not vaild and true if it is valid
+        public boolean placeBead(int row, int column, PlayerType player) {
                 BeadColour bead;
                 //if the player is Player one then it will place a white bead
                 if (player == PlayerType.PLAYER_ONE) {
@@ -35,12 +40,15 @@ public class Board {
                 //if the coordinates are valid then it will place
                 if (coordinateCheck(row, column, bead)) {
                         Peg peg = board[row][column];
+                        if (peg.isFull())
+                                return false;
                         peg.addBead(bead);
                 }
                 //if coordinates not valid it will not place the coordinates
                 else {
                         System.out.println("Invalid Coordinates");
                 }
+                return true;
         }
 
         //checking if the coordinates used are within the bounds

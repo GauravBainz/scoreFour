@@ -13,49 +13,68 @@ import java.util.ArrayList;
 import scoreFour.PlayerType;
 
 /**
- * A class representing a Branch of potential moves
+ * A class representing a Branch of potential moves from a board
  */
 public class AIBranch {
 	private boolean isTerminating;
-	private PlayerType aiPlayer;
-	private ArrayList<Board> boards;
+	private Board baseBoard;
 	private ArrayList<AIBranch> subBranches;
+
 	/**
 	 * Creates a new AIBranch object
 	 */
-	public AIBranch(PlayerType aiPlayer, boolean isTerminating) {
-		this.aiPlayer = aiPlayer;
-		this.isTerminating = isTerminating;
-		boards = new ArrayList<Board>();
-		branches = new ArrayList<AIBranch>();
+	public AIBranch(PlayerType aiPlayer, Board board) {
+		this.baseBoard = board;
+		if (baseBoard.checkWin(aiPlayer)) {
+			isTerminating = true;
+			subBranches = null;
+		}
+		else {
+			isTerminating = false;
+			subBranches = new ArrayList<AIBranch>();
+			
+			// Fill branch with potential moves
+			for (int i = 0; i < 4; i++) {
+				for (int j = 0; j < 4; j++) {
+					Board potentialMove = new Board(baseBoard.getBoard());
+					boolean isValid = potentialMove.placeBead(i, j, aiPlayer);
+					if (isValid) {
+						AIBranch branch = new AIBranch(aiPlayer, potentialMove);
+						subBranches.add(branch);
+					}
+					else {
+						// Do nothing
+						continue;
+					}
+				}
+			}
+		}
 	}
 
 	/**
 	 * Adds a potential move to the branch
+	 *
 	 * @param nextMove The potential next move
 	 */
-	public void addBranch(Board nextMove) {
-		boards.add(nextMove);
-		AIBranch nextMoveBranch = new AIBranch(aiPlayer);
-		if (!nextMove.checkWin(aiPlayer)) {
-
+	public void addBranch(AIBranch nextMove) {
+		if (!isTerminating) {
+			branches.add(nextMove);
 		}
-		branches.add(nextMoveBranch);
 	}
 	
 	/**
 	 * Returns the number of wins on this Branch
 	 */
 	public int getNumOfWins() {
-		int boardWins, branchWins;
-		for (Board board : boards) {
-			if (board.checkWin(PLAYER_TWO))
-				boardWins++;
+		int wins = 0;
+		if (!isTerminating) {
+			for (AIBranch branch : subBranches)
+				wins += branch.getnumOfWins();
 		}
-		
-		for (AIBranch branch : subBranches)
-			branchWins += branch.getnumOfWins();
-		return boardWins + branchWins;
+		else {
+			wins = 1;
+		}
+		return wins;
 	}
 
 	/**

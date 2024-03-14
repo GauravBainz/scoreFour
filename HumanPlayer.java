@@ -10,7 +10,7 @@ package scoreFour;
 /**
  * A class representing the human player.
  */
-class HumanPlayer {
+class HumanPlayer extends Player {
 	private Board mainBoard;
 	/**
 	 * Creates a new human player which will play on the provided board
@@ -30,5 +30,6 @@ class HumanPlayer {
 	public void playNextMove(int x, int y) {
 		// x and y start at 0, 1, 2...
 		mainBoard.placeBead(x, y, PLAYER_ONE);
+		nextTurn();
 	}
 }
