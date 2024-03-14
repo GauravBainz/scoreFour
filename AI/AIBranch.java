@@ -16,30 +16,54 @@ import scoreFour.PlayerType;
  * A class representing a Branch of potential moves from a board
  */
 public class AIBranch {
+	private boolean isWinning;
 	private boolean isTerminating;
 	private Board baseBoard;
+	private AIBranch previous;
 	private ArrayList<AIBranch> subBranches;
+	private int simulatedTurn;
+
+	private static final PlayerType humanPlayerType = PLAYER_ONE;
+	private static final PlayerType aiPlayerType = PLAYER_TWO;
 
 	/**
-	 * Creates a new AIBranch object
+	 * Creates a new AIBranch object assuming turn starts on AI's turn
 	 */
-	public AIBranch(PlayerType aiPlayer, Board board) {
+	public AIBranch(AIBranch previous, Board board, int simulatedTurn) {
 		this.baseBoard = board;
-		if (baseBoard.checkWin(aiPlayer)) {
+		this.previous = previous;
+		// Won for AI on provided board
+		if (baseBoard.checkWin(aiPlayerType)) {
 			isTerminating = true;
+			isWinning = true;
 			subBranches = null;
 		}
+		// Won for human on provided board
+		else if (baseBoard.checkWin(humanPlayerType)) {
+			isTerminating = true;
+			isWinning = false;
+		}
+		// Neither won on provided board
 		else {
 			isTerminating = false;
+			isWinning = false;
 			subBranches = new ArrayList<AIBranch>();
+
+			PlayerType currentPlayerType;
+			// If turn is even set the branch's player to the AIPlayer and the human player if it is not
+			if (simulatedTurn % 2 == 0)
+				currentPlayersType = aiPlayerType;
+			else
+				currentPlayersType = humanPlayerType;
+
 			
-			// Fill branch with potential moves
+			// Fill branch with potential moves from both players
 			for (int i = 0; i < 4; i++) {
 				for (int j = 0; j < 4; j++) {
 					Board potentialMove = new Board(baseBoard.getBoard());
-					boolean isValid = potentialMove.placeBead(i, j, aiPlayer);
+					boolean isValid = potentialMove.placeBead(i, j, currentPlayerType);
 					if (isValid) {
-						AIBranch branch = new AIBranch(aiPlayer, potentialMove);
+						AIBranch branch = new AIBranch(this, potentialMove, simulatedTurn+1);
 						subBranches.add(branch);
 					}
 					else {
@@ -49,6 +73,15 @@ public class AIBranch {
 				}
 			}
 		}
+	}
+
+	/**
+	 * Returns the previous branch
+	 *
+	 * @return The previous branch
+	 */
+	public AIBranch getPreviousBranch() {
+		return previous;
 	}
 
 	/**
@@ -67,13 +100,15 @@ public class AIBranch {
 	 */
 	public int getNumOfWins() {
 		int wins = 0;
-		if (!isTerminating) {
+		if (!isWinning && !isTerminating) {
 			for (AIBranch branch : subBranches)
 				wins += branch.getnumOfWins();
 		}
-		else {
+		else if (isWinning && isTerminating) {
 			wins = 1;
 		}
+		// if the branch is not winning and it is terminating then the human won and the number of
+		// wins is zero
 		return wins;
 	}
 
