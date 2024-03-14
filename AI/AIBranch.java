@@ -21,7 +21,6 @@ public class AIBranch {
 	private Board baseBoard;
 	private AIBranch previous;
 	private ArrayList<AIBranch> subBranches;
-	private int simulatedTurn;
 
 	private static final PlayerType humanPlayerType = PLAYER_ONE;
 	private static final PlayerType aiPlayerType = PLAYER_TWO;
