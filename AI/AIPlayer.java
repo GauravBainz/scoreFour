@@ -40,6 +40,12 @@ public class AIPlayer extends Player {
 	public void playNextMove() {
 		int derivedX, derivedY;
 		Peg[][] contents = mainBoard.getBoard();
+
+		// Generate Move tree if turn is not zero and the first AIBranch is null
+		if (getCurrentTurn() != 0 && firstBranch == null) {
+			firstBranch = new AIBranch(null, mainBoard, getCurrentTurn());
+		}
+
 		// So game has just started And AI goes first then start at the bottom corner to
 		// Open up the most moves
 		if ((startsFirst == aiPlayer) && getCurrentTurn() == 0) {

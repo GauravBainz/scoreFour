@@ -15,7 +15,7 @@ public class Player {
     /**
      * Increases the turn count by one
      */
-    public static void nextTurn() {
+    protected static void nextTurn() {
         currentTurn++;
     }
 
