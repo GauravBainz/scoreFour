@@ -42,6 +42,7 @@ public class AIBranch {
 		else if (baseBoard.checkWin(humanPlayerType)) {
 			isTerminating = true;
 			isWinning = false;
+			subBranches = null;
 		}
 		// Neither won on provided board
 		else {
