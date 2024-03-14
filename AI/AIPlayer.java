@@ -5,7 +5,7 @@
  * Student Number: 230161077
  * @version 1
  */
-package scoreFour;
+package scoreFour.AI;
 
 import scoreFour.Board;
 import scoreFour.Player;
