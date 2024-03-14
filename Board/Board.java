@@ -1,7 +1,6 @@
-package board.BoardV2;
+package scoreFour.Board;
 
-import board.interfaces.BeadColour;
-import board.interfaces.PlayerType;
+import scoreFour.PlayerType;
 
 public class Board {
         private Peg[][] board;

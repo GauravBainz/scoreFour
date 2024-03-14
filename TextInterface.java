@@ -1,12 +1,14 @@
+package scoreFour;
+
 import java.lang.reflect.Array;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 
-import ScoreIV.BeadColour;
-import ScoreIV.Board;
-import ScoreIV.Peg;
+import scoreFour.Board.BeadColour;
+import scoreFour.Board.Board;
+import scoreFour.Board.Peg;
 
 /** 
  * 
@@ -31,12 +33,13 @@ public class TextInterface extends Board {
 							
 					}
 					else if ((start_response.equals("No")) || (start_response.equals("no"))) { System.out.println("Okay :( Have a nice day!");  
-								quitGame();	}
+								quitGame(); 
+					}
 					else {
 							System.out.println("Sorry, I don't know that prompt. Let's try again!");
 							startNewGame();
 							
-	}					
+					}					
 }		
 	public static void score4Rules() { 
 		

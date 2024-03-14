@@ -1,5 +1,4 @@
-package board.BoardV2;
-import board.interfaces.BeadColour;
+package scoreFour.Board;
 
 public class Peg {
     private BeadColour[] Peg;
