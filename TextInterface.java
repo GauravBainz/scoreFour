@@ -54,7 +54,7 @@ public class TextInterface extends Board {
 			
 			System.out.println("The rules of the game are as follows:");
 			System.out.println("There is a board before you which has an array of 16 pegs...");
-			System.out.println("The goal of the game is to make as many pegs of your colour in a row as possible!");
+			System.out.println("The goal of the game is to place as many beads of your colour in a row as possible!");
 			System.out.println("You can place your bead on any peg that has less than four beads on it. Placing your bead over another player's bead will block them from completing a row.");
 			System.out.println("When you place a bead overtop of another bead, the value will change to it's current colour.");
 			System.out.println("If you place a bead on a peg that already holds four beads, you will receive an error message!"); 
