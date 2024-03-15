@@ -1,5 +1,7 @@
 package board.BoardV2;
-
+/**
+ * @author Gaurav Bains
+ */
 import board.interfaces.BeadColour;
 import board.interfaces.PlayerType;
 
