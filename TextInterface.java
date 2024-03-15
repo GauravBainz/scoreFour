@@ -14,7 +14,6 @@ import ScoreIV.PlayerType;
  * Author: Ursula Holler-Busch
  **/
 
-
 public class TextInterface extends Board {
 	static Scanner s = new Scanner(System.in);
 	static Board board = new Board();
@@ -24,8 +23,6 @@ public class TextInterface extends Board {
 		System.out.println("Would you like to start a new game of Score IV? Please enter Yes or No.");
 			String start_response = s.nextLine(); 
 					if  ((start_response.equals("Yes")) || (start_response.equals("yes"))) { 
-						
-						
 							System.out.println("Okay, starting the game now!");
 							System.out.println("Would you like to play the text version or the GUI version?");
 							System.out.print("Please enter 'text' to play in the terminal, or 'GUI' to play with the GUI.");
@@ -69,7 +66,6 @@ public class TextInterface extends Board {
 			System.out.println("Okay, good luck!");
 				readyOrNot();
 		}
-		
 	else { 
 			System.out.println("Sorry, I don't know that prompt. Can you try something else?");
 				score4Rules();
@@ -88,6 +84,10 @@ public class TextInterface extends Board {
 				if ((ready_response.equals("Start"))||ready_response.equals("start")) {
 					humanTurn(); }
 			}
+			else {
+				System.out.println("Sorry, I don't know that prompt. Please try again with either yes or no!");
+				readyOrNot();
+			} 
 	}
 	
 	public static void goGraphic() {
@@ -108,25 +108,41 @@ public class TextInterface extends Board {
 			//will break if removed!
 
 			String confirm = s.nextLine();
-				if (coordinateCheck(play_column, play_column, null) == true) {
-					if (confirm.equals("Yes") || confirm.equals("yes")) {  System.out.println("Your move is confirmed."); {
-						board.placeBead(play_row, play_column, PlayerType.HUMAN);
-						board.displayBoard();
+			if (confirm.equals("Yes") || confirm.equals("yes")) {
+				if (coordinateCheck(play_column, play_row, BeadColour.WHITE) == true) 
+				{ System.out.println("Your move is confirmed."); {
+					board.placeBead(play_row, play_column, PlayerType.HUMAN);
+					board.displayBoard(); }} 
 
+				else if (coordinateCheck(play_column, play_row, BeadColour.WHITE) == false) { 
+						System.out.println("Those coordinates aren't valid! Please try to place the bead somewhere else.");
+						System.out.println("Remember, the first row is Row 0, and the fourth row is Row 3.");
+						humanTurn();
+					}
+			}
+					else if (coordinateCheck(play_column, play_row, BeadColour.WHITE) == true) { 
+						if (confirm.equals("No")|| confirm.equals("no")) { 
+							System.out.println("Okay, the move will be cancelled and you can try again.");
+							humanTurn();
 						}
 					}
+	
 		if (checkWin(null) == true) {
 				Winner();
 			} 
 			else if (checkWin(null)== false) {
 				
 			} 
-		}
+		
 			
 			else if (confirm.equals("No")|| confirm.equals("no")) { System.out.println("Okay, let's retry."); 
 				humanTurn(); //Restart the turn to try again. 	
 				
 			}
+			else { System.out.println("Please try yes or no to confirm your move! Trying again.");
+			humanTurn();
+			
+		}
 				
 		System.out.println("Would you like to continue?");
 		String continue_yn = s.nextLine();
@@ -138,7 +154,8 @@ public class TextInterface extends Board {
 				quitGame();
 			}
 			else { 
-				System.out.println("Please respond yes or no.");
+				System.out.println("Please respond yes or no. Trying again!");
+				humanTurn();
 			} 
 			System.out.println("The AI is thinking about where to play...");
 			aiTurn();
@@ -151,6 +168,9 @@ public class TextInterface extends Board {
 			} 
 	} 
 	public static void aiTurn() { 
+		AIPlayer.playNextMove(); 
+		displayBoard();
+		
 	} 
 	
 	
@@ -164,3 +184,4 @@ public class TextInterface extends Board {
 	public static void main(String[] args) {  
 		startNewGame();
 			}}
+
