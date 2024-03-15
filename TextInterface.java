@@ -14,6 +14,7 @@ import ScoreIV.PlayerType;
  * Author: Ursula Holler-Busch
  **/
 
+
 public class TextInterface extends Board {
 	static Scanner s = new Scanner(System.in);
 	static Board board = new Board();
@@ -23,11 +24,21 @@ public class TextInterface extends Board {
 		System.out.println("Would you like to start a new game of Score IV? Please enter Yes or No.");
 			String start_response = s.nextLine(); 
 					if  ((start_response.equals("Yes")) || (start_response.equals("yes"))) { 
-							System.out.println("Okay, starting the game now! Here is the game board.");
-							board.displayBoard();
-							System.out.println("The characters here represent the ScoreIV board of 16 pegs a top-down view.");
-							score4Rules(); 
-									
+						
+						
+							System.out.println("Okay, starting the game now!");
+							System.out.println("Would you like to play the text version or the GUI version?");
+							System.out.print("Please enter 'text' to play in the terminal, or 'GUI' to play with the GUI.");
+							String mode_response = s.nextLine();
+							if ((mode_response.equals("text"))||mode_response.equals("Text")) {
+								board.displayBoard();
+								System.out.println("The characters here represent the ScoreIV board of 16 pegs a top-down view.");
+								score4Rules(); 
+							}
+							
+							else if ((mode_response.equals("GUI"))||mode_response.equals("gui")) { 
+								goGraphic();
+							}
 					}
 					else if ((start_response.equals("No")) || (start_response.equals("no"))) { System.out.println("Okay :( Have a nice day!");  
 								quitGame();	}
@@ -79,8 +90,9 @@ public class TextInterface extends Board {
 			}
 	}
 	
-	public void goGraphic() {
-		// JFrame set visible true to start GUI.
+	public static void goGraphic() {
+			ScoreIVGUI goGUI = new ScoreIVGUI();
+			goGUI.setVisible(true);
 	}
 	
 	public static void humanTurn() { 
@@ -103,10 +115,10 @@ public class TextInterface extends Board {
 
 						}
 					}
-		if (checkWin() == true) {
+		if (checkWin(null) == true) {
 				Winner();
 			} 
-			else if (checkWin()== false) {
+			else if (checkWin(null)== false) {
 				
 			} 
 		}
@@ -130,15 +142,18 @@ public class TextInterface extends Board {
 			} 
 			System.out.println("The AI is thinking about where to play...");
 			aiTurn();
-			if (checkWin() == true) {
+			
+			if (checkWin(null) == true) {
 				Winner();
 			} 
-			else if (checkWin()== false) {
+			else if (checkWin(null)== false) {
 				humanTurn();
 			} 
 	} 
 	public static void aiTurn() { 
 	} 
+	
+	
 	public static void Winner() { 
 	System.out.println("You win!!!! Congratulations!");
 	startNewGame();
@@ -149,4 +164,3 @@ public class TextInterface extends Board {
 	public static void main(String[] args) {  
 		startNewGame();
 			}}
-
