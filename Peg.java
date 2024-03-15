@@ -1,4 +1,7 @@
 package board.BoardV2;
+/**
+ * @author Gaurav Bains
+ */
 import board.interfaces.BeadColour;
 
 public class Peg {
