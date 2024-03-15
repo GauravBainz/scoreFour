@@ -85,17 +85,6 @@ public class AIBranch {
 	}
 
 	/**
-	 * Adds a potential move to the branch
-	 *
-	 * @param nextMove The potential next move
-	 */
-	public void addBranch(AIBranch nextMove) {
-		if (!isTerminating) {
-			branches.add(nextMove);
-		}
-	}
-	
-	/**
 	 * Returns the number of wins on this Branch
 	 */
 	public int getNumOfWins() {
@@ -110,6 +99,15 @@ public class AIBranch {
 		// if the branch is not winning and it is terminating then the human won and the number of
 		// wins is zero
 		return wins;
+	}
+
+	/**
+	 * Returns a ArrayList of sub branches
+	 *
+	 * @return An ArrayList of sub branches
+	 */
+	ArrayList<AIBranch> getSubBranches() {
+		return subBranches;
 	}
 
 	/**

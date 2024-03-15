@@ -46,7 +46,8 @@ public class Board {
                 }
                 //if coordinates not valid it will not place the coordinates
                 else {
-                        System.out.println("Invalid Coordinates");
+                        //System.out.println("Invalid Coordinates");
+                        return false;
                 }
                 return true;
         }
