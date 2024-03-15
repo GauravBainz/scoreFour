@@ -51,6 +51,9 @@ public class AIPlayer extends Player {
 		if ((startsFirst == aiPlayer) && getCurrentTurn() == 0) {
 			derivedX = derivedY = 0;
 		}
+		else {
+
+		}
 
 		// x and y start at 0, 1, 2...
 		mainBoard.placeBead(derivedX, derivedY, aiPlayer);

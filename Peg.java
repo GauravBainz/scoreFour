@@ -48,6 +48,15 @@ public class Peg {
         else
             return false;
     }
+
+    public boolean equals(Peg other) {
+        for (int i = 0; i < Peg.length; i++) {
+            if (Peg[i] != other.Peg[i])
+                return false;
+        }
+        return true;
+    }
+
     public BeadColour getColourAt(int k){ //checks colour of bead at given location
         if(k>= 0 && k< height){
             return Peg[k];

@@ -111,6 +111,15 @@ public class AIBranch {
 	}
 
 	/**
+	 * Returns the board contained by the AIBranch
+	 *
+	 * @return The board contained by the object
+	 */
+	Board getBoard() {
+		return baseBoard;
+	}
+    
+	/**
 	 * If this method returns true then there are nio subbranches of this branch
 	 * @return A boolean saying if the branch terminates or not
 	 */

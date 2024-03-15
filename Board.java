@@ -142,6 +142,16 @@ public class Board {
                 return board;
         }
 
+        public boolean equals(Board other) {
+                for (int i = 0; i < 4; i++) {
+                        for (int j = 0; j < 4; j++) {
+                                if (board[i][j] != other.board[i][j])
+                                        return false;
+                        }
+                }
+                return true;
+        }
+
         //checks if there is a win going diagonally on all 4 levels
         public boolean checkDiagonalWin() {
                 // Check main diagonals (from top-left to bottom-right)
