@@ -1,0 +1,77 @@
+
+
+
+
+
+public class Board {
+    private Peg[][] board;
+    private final int size = 4;
+    private final WinChecker winChecker; // Instance of WinChecker
+
+    public Board(Peg[][] baseBoard) {
+        board = baseBoard.clone();
+        winChecker = new WinChecker(); // Initialize WinChecker instance
+    }
+
+    public Board() {
+        //iterating through and initializing each spot with a Peg
+        board = new Peg[4][4];
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 4; j++) {
+                board[i][j] = new Peg();
+            }
+        }
+        winChecker = new WinChecker(); // Initialize WinChecker instance
+    }
+
+    public void displayBoard() {
+        BoardDisplay.displayBoard(board);
+    }
+
+    // Modified to return false if a move is not valid and true if it is valid
+    public boolean placeBead(int row, int column, PlayerType player) {
+        BeadColour bead;
+        // if the player is Player one then it will place a white bead
+        if (PlayerType.PLAYER_ONE == player) {
+            bead = BeadColour.WHITE;
+        } else {
+            // if player two then will place black bead
+            bead = BeadColour.BLACK;
+        }
+        // if the coordinates are valid then it will place
+        if (coordinateCheck(row, column, bead)) {
+            Peg peg = board[row][column];
+            if (peg.isFull())
+                return false;
+            peg.addBead(bead);
+            // Check for a win after placing the bead
+            return winChecker.checkWin(row, column, bead);
+        } else {
+            // System.out.println("Invalid Coordinates");
+            return false;
+        }
+    }
+
+    // checking if the coordinates used are within the bounds
+    public boolean coordinateCheck(int row, int column, BeadColour bead) {
+        if (row < 0 || row > 3 || column < 0 || column > 3) {
+            return false;
+        }
+        return true;
+    }
+
+    // returns the board array
+    public Peg[][] getBoard() {
+        return board;
+    }
+
+    // will clear the board of all beads
+    public void clear() {
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 4; j++) {
+                Peg peg = board[i][j];
+                peg.clear();
+            }
+        }
+    }
+}
