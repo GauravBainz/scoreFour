@@ -1,5 +1,7 @@
 package board.BoardV2;
-
+/**
+ * @author Gaurav Bains
+ */
 public class BoardDisplay {
     public static void displayBoard(Peg[][] board){
         System.out.println();
