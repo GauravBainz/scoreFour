@@ -11,11 +11,13 @@ import scoreFour.Board;
 import scoreFour.Player;
 import scoreFour.PlayerType;
 
+import java.util.ArrayList;
+
 /**
  * A class representing the AI player.
  */
 public class AIPlayer extends Player {
-	private Board mainBoard;
+	private board.BoardV2.Board mainBoard;
 	private PlayerType startsFirst;
 
 	private AIBranch firstBranch;
@@ -49,14 +51,31 @@ public class AIPlayer extends Player {
 		// So game has just started And AI goes first then start at the bottom corner to
 		// Open up the most moves
 		if ((startsFirst == aiPlayer) && getCurrentTurn() == 0) {
-			derivedX = derivedY = 0;
+			mainBoard.placeBead(0, 0, aiPlayer);
 		}
 		else {
+			// Get branch matching board played by player
+			for (AIBranch branch : firstBranch.getSubBranches()) {
+				if (branch.getBoard().equals(baseBoard)) {
+					firstBranch = branch;
+					break;
+				}
+			}
 
+			// Find Branch starting from best move for AI
+			int mostWins = 0;
+			AIBranch bestBranch;
+			for (AIBranch branch : firstBranch.getSubBranches()) {
+				int currentNumWins = branch.getNumofWins();
+				if (currentNumWins > mostWins) {
+					mostWins = currentNumWins;
+					bestBranch = branch;
+				}
+			}
+			firstBranch = bestBranch;
+			mainBoard = firstBranch.getBoard();
 		}
 
-		// x and y start at 0, 1, 2...
-		mainBoard.placeBead(derivedX, derivedY, aiPlayer);
 		nextTurn();
 	}
 }

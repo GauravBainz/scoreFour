@@ -142,6 +142,7 @@ public class Board {
                 return board;
         }
 
+        // Compares two boards
         public boolean equals(Board other) {
                 for (int i = 0; i < 4; i++) {
                         for (int j = 0; j < 4; j++) {
