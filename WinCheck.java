@@ -1,9 +1,10 @@
-public class Board extends Peg {
+
+public class WinChecker extends Peg {
     final int numRows = 4;
     final int numColumns = 4;
-    private Piece[][] board;
+    Piece[][] board;
 
-    public Board() {
+    public WinChecker() {
         // Initialize the board
         board = new Piece[numRows][numColumns];
     }
@@ -85,4 +86,10 @@ public class Board extends Peg {
         return false;
     }
 
+
+    public boolean checkWin(int row, int column, BeadColour bead) {
+        return false;
+    }
 }
+
+
