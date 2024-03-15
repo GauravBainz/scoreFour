@@ -5,77 +5,58 @@
  * Student Number: 230161077
  * @version 1
  */
-package scoreFour.AI;
+package board.player;
 
-import scoreFour.Board;
-import scoreFour.Player;
-import scoreFour.PlayerType;
-
-import java.util.ArrayList;
+import board.player.*;
+import board.BoardV2.Board;
+import board.BoardV2.Peg;
+import board.player.AIBranch;
+import board.interfaces.PlayerType;
 
 /**
  * A class representing the AI player.
  */
 public class AIPlayer extends Player {
-	private board.BoardV2.Board mainBoard;
-	private PlayerType startsFirst;
+    private Board mainBoard;
+    private PlayerType startsFirst;
 
-	private AIBranch firstBranch;
+    private AIBranch firstBranch;
 
-	private static final PlayerType aiPlayer = PLAYER_TWO; // Change if needed
+    private static final PlayerType aiPlayer = PlayerType.PLAYER_TWO; // Change if needed
 
-	/**
-	 * Creates a new AI player which will play on the provided board
-	 
-	 * @param mainBoard The board the AIPlayer will play on
-	 * @param startsFirst The player who starts first
-	 */
-	public AIPlayer(Board mainBoard, PlayerType startsFirst) {
-		this.startsFirst = startsFirst;
-		this.mainBoard = mainBoard;
-	}
+    /**
+     * Creates a new AI player which will play on the provided board
+
+     * @param mainBoard The board the AIPlayer will play on
+     * @param startsFirst The player who starts first
+     */
+    public AIPlayer(Board mainBoard, PlayerType startsFirst) {
+        this.startsFirst = startsFirst;
+        this.mainBoard = mainBoard;
+    }
 
 
-	/**
-	 * Plays a move at a board position determined by the AI
-	 */
-	public void playNextMove() {
-		int derivedX, derivedY;
-		Peg[][] contents = mainBoard.getBoard();
+    /**
+     * Plays a move at a board position determined by the AI
+     */
+    public void playNextMove() {
+        int derivedX, derivedY;
+        Peg[][] contents = mainBoard.getBoard();
 
-		// Generate Move tree if turn is not zero and the first AIBranch is null
-		if (getCurrentTurn() != 0 && firstBranch == null) {
-			firstBranch = new AIBranch(null, mainBoard, getCurrentTurn());
-		}
+        // Generate Move tree if turn is not zero and the first AIBranch is null
 
-		// So game has just started And AI goes first then start at the bottom corner to
-		// Open up the most moves
-		if ((startsFirst == aiPlayer) && getCurrentTurn() == 0) {
-			mainBoard.placeBead(0, 0, aiPlayer);
-		}
-		else {
-			// Get branch matching board played by player
-			for (AIBranch branch : firstBranch.getSubBranches()) {
-				if (branch.getBoard().equals(baseBoard)) {
-					firstBranch = branch;
-					break;
-				}
-			}
-
-			// Find Branch starting from best move for AI
-			int mostWins = 0;
-			AIBranch bestBranch;
-			for (AIBranch branch : firstBranch.getSubBranches()) {
-				int currentNumWins = branch.getNumofWins();
-				if (currentNumWins > mostWins) {
-					mostWins = currentNumWins;
-					bestBranch = branch;
-				}
-			}
-			firstBranch = bestBranch;
-			mainBoard = firstBranch.getBoard();
-		}
-
-		nextTurn();
-	}
+        // So game has just started And AI goes first then start at the bottom corner to
+        // Open up the most moves
+        if ((startsFirst == aiPlayer) && getCurrentTurn() == 0) {
+            derivedX = derivedY = 0;
+        }
+        else{
+            derivedY = 1;
+            derivedX = 1;
+        }
+        // x and y start at 0, 1, 2...
+        mainBoard.placeBead(derivedX, derivedY, aiPlayer);
+        nextTurn();
+    }
 }
+
