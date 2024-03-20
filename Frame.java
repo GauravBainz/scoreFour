@@ -128,5 +128,14 @@ public class Frame extends JFrame {
         }
         repaint();
     }
+    public static void main(String[] args){
+
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                new Frame(new Board()).setVisible(true);
+            }
+        });
+    }
+
 
 }
