@@ -117,5 +117,16 @@ public class Frame extends JFrame {
         aiPlayer.playNextMove();
         updateBeadLabels(pegPanel, peg);
     }
+    public void updateWholeBoard() {
+        Peg[][] pegs = board.getBoard();
+        for (int i = 0; i < pegs.length; i++) {
+            for (int j = 0; j < pegs[i].length; j++) {
+                JPanelWithIndices pegPanel = (JPanelWithIndices) ((JPanel) getContentPane().getComponent(0)).getComponent(i * 4 + j);
+                Peg peg = pegs[i][j];
+                updateBeadLabels(pegPanel, peg);
+            }
+        }
+        repaint();
+    }
 
 }
