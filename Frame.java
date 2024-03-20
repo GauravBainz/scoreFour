@@ -70,19 +70,20 @@ public class Frame extends JFrame {
                 //allows you to place bead and then Ai will go after
                 board.placeBead(row, column, human);
                 updateBeadLabels(pegPanel, peg);
-                aiTurn(pegPanel, peg);
 
-                //if a human win then will clear board
+
                 if (board.checkWin(human)) {
                     JOptionPane.showMessageDialog(null, "Game Over, You win!", "Game Over", JOptionPane.INFORMATION_MESSAGE);
                     board.clear();
                     updateBeadLabels(pegPanel, peg);
                 }
-                //if Ai will will clear board
-                if (board.checkWin(aiPlayer)) {
+                else if (board.checkWin(aiPlayer)) {
                     JOptionPane.showMessageDialog(null, "Game Over, AI wins!", "Game Over", JOptionPane.INFORMATION_MESSAGE);
                     board.clear();
                     updateBeadLabels(pegPanel, peg);
+                }
+                else{
+                    aiTurn(pegPanel,peg);
                 }
             }
         });
@@ -104,7 +105,7 @@ public class Frame extends JFrame {
         //updates the labels so they display on screen
         Component[] components = pegPanel.getComponents();
         for (int i = 0; i < 4; i++) {
-            JLabel beadLabel = (JLabel) components[i];
+            JLabel beadLabel = (JLabel) components[3-i];
             BeadColour colour = peg.getColourAt(i);
             configureBeadLabel(beadLabel, colour);
         }
