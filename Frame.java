@@ -14,11 +14,11 @@ import java.awt.event.MouseEvent;
  * @author Gaurav Bains
  */
 public class Frame extends JFrame {
-    private Board board;
+    private static Board board;
     private JLabel pegLabel;
     private static PlayerType human = PlayerType.PLAYER_ONE;
-    private static PlayerType aiPlayer = PlayerType.PLAYER_TWO;
-    private AIPlayer aiPlayerInstance; // Declare AIPlayer instance
+    private static PlayerType ai = PlayerType.PLAYER_TWO;
+    static AIPlayer aiPlayer = new AIPlayer(board, PlayerType.PLAYER_TWO);
 
     public Frame(Board board) {
         //initializing the frame and board
@@ -72,18 +72,21 @@ public class Frame extends JFrame {
                 updateBeadLabels(pegPanel, peg);
 
 
-                if (board.checkWin(human)) {
+                if (Board.checkWin(human)) {
                     JOptionPane.showMessageDialog(null, "Game Over, You win!", "Game Over", JOptionPane.INFORMATION_MESSAGE);
                     board.clear();
+                    updateWholeBoard();
                     updateBeadLabels(pegPanel, peg);
                 }
-                else if (board.checkWin(aiPlayer)) {
+                else if (Board.checkWin(ai)) {
                     JOptionPane.showMessageDialog(null, "Game Over, AI wins!", "Game Over", JOptionPane.INFORMATION_MESSAGE);
                     board.clear();
+                    updateWholeBoard();
                     updateBeadLabels(pegPanel, peg);
                 }
                 else{
                     aiTurn(pegPanel,peg);
+                    updateWholeBoard();
                 }
             }
         });
@@ -112,10 +115,11 @@ public class Frame extends JFrame {
     }
 
     private void aiTurn(JPanelWithIndices pegPanel, Peg peg) {
-        //method for the ai player to go
-        AIPlayer aiPlayer = new AIPlayer(board, PlayerType.PLAYER_TWO);
+        //method for the Ai player to go
+        AIPlayer aiPlayer = new AIPlayer(board, PlayerType.PLAYER_ONE);
         aiPlayer.playNextMove();
         updateBeadLabels(pegPanel, peg);
+        updateWholeBoard();
     }
     public void updateWholeBoard() {
         Peg[][] pegs = board.getBoard();
@@ -139,3 +143,5 @@ public class Frame extends JFrame {
 
 
 }
+
+
